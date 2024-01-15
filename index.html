@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Quick Kanji Lookup</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" stylesheet" href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css" type="text/css">
+</head>
+
+<body>
+  <header>
+    <h1>Quick Kanji Lookup</h1>
+  </header>
+
+  <main>
+    <section id="searchbox" v-scope="SearchBox()"></section>
+    <section id="resultsbox" v-scope="Results()"></section>
+  </main>
+
+  <template id="search">
+    <form @submit.prevent="search">
+      <input type="text" v-model="store.kanji" placeholder="kanji character" />
+    </form>
+  </template>
+
+  <template id="results">
+    <h3>{{ store.msg }}</h3>
+    <div><span>grade: </span>{{ store.results.grade }}</div>
+    <div><span>jlpt: </span>{{ store.results.jlpt }}</div>
+    <div><span>heisig: </span>{{ store.results.heisig_en }}</div>
+    <div><span>meaning: </span>{{ store.results.meanings.join(', ')}}</div>
+    <div><span>on readings: </span>{{ store.results.on_readings.join(', ')}}</div>
+    <div><span>kun readings: </span>{{ store.results.kun_readings.join(', ')}}</div>
+    <div><span>name readings: </span>{{ store.results.name_readings.join(', ')}}</div>
+    <div><span>notes: </span>{{ store.results.notes.join(', ')}}</div>
+    <div><span>stroke count: </span>{{ store.results.stroke_count }}</div>
+    <div><span>unicode: </span>{{ store.results.unicode }}</div>
+    <div>
+      <img v-bind:src="store.svgFileName">
+    </div>
+    <div>
+      <button @click="copy">Copy SVG to Clipboard</button>
+      <pre>
+        <code>{{ store.rawSVG }}</code>
+      </pre>
+    </div>
+  </template>
+
+  <script src="src/index.js" type="module">
+  </script>
+</body>
+
+</html>
